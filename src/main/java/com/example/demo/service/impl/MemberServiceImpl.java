@@ -3,6 +3,8 @@ package com.example.demo.service.impl;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	MemberRoleDao memberRoleDao;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public MemberEntity getMember(String userId) {
@@ -45,10 +50,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Transactional
-	public int insertMemberInfo(Member member) {
+	@Transactional	
+	public void enroll(Member member) throws Exception {
 		
-		return memberDao.insertMemberInfo(member);
+		member.setPwd(passwordEncoder.encode(member.getPwd()));
+		
+		int result = memberDao.insertMemberInfo(member);
+		
+		if(result<0) {
+			throw new Exception("Enrollment Failed");
+		}
 	}
 
 }

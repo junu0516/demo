@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.dto.Member;
 import com.example.demo.service.LoginService;
+import com.example.demo.service.MemberService;
 
 @Controller
 public class MainController {
 	
 	@Autowired
-	private LoginService loginService;
+	private MemberService memberService;
 	
 	@GetMapping("/main")
 	public String showMain() {
@@ -35,7 +36,7 @@ public class MainController {
 	@PostMapping("/enroll")
 	public String enroll(Member member) throws Exception {
 
-		loginService.enroll(member);
+		memberService.enroll(member);
 
 		return "redirect:main";
 	}

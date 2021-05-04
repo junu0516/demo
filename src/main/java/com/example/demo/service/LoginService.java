@@ -52,16 +52,4 @@ public class LoginService implements UserDetailsService {
 		return memberDetails;
 	}
 
-	public void enroll(Member member) throws Exception {
-		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		member.setPwd(encoder.encode(member.getPwd()));
-		
-		int result = memberService.insertMemberInfo(member);
-		
-		if(result<0) {
-			throw new Exception("Enrollment Failed");
-		}
-	}
-
 }

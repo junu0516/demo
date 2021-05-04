@@ -12,6 +12,6 @@ public interface MemberService {
 
 	public ArrayList<MemberRoleEntity> getMemberRoles(String userId);
 
-	public int insertMemberInfo(Member member);
+	public void enroll(Member member) throws Exception;
 	
 }
