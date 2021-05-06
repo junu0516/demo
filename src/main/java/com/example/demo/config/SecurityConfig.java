@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 	
-			web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+		web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 	}
 
 	@Override
@@ -61,13 +61,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("userId")
 				.passwordParameter("userPwd")
 				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/success")
-				.failureUrl("/failure")
+				.defaultSuccessUrl("/main")
+				.failureForwardUrl("/failure")
 				.permitAll()
 			.and()
 				.logout()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/")
+				.logoutSuccessUrl("/main")
 			.and()
 				.csrf().disable();
 	}

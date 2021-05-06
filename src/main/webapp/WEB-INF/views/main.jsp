@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,8 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello</h1>
-	<a href="enrollForm">enroll</a>
-	<a href="loginForm">login</a>
+<jsp:include page="header.jsp"/><br>
+<div class="container" id="container">
+	<h1 align="center">Demo Project</h1><br>
+	<img src="/images/paris.jpg" class="rounded mx-auto d-block img-fluid"><br>
+	<c:if test="${userId != null }">
+		<p align="center">${userId}님이 로그인하셨습니다.</p>
+	</c:if>
+	<c:if test="${userId == null }">
+		<p align="center"><a href="loginForm">로그인</a>해주세요~</p>
+	</c:if>
+</div>
 </body>
 </html>
