@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +46,9 @@ public class MainController {
 	}
 	
 	@GetMapping("/failure")
-	public String showFailurePage() {
+	public String showFailurePage(Principal principal, HttpServletRequest request) {
+		
+		System.out.println("failed");
 		
 		return "member/failure";
 	}

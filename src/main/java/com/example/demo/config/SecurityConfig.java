@@ -7,11 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -32,9 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	LoginService loginService;
 	
 	@Override
+	public void configure(WebSecurity web) throws Exception {
+	
+			web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+	}
+
+	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.userDetailsService(loginService);		
+		auth.userDetailsService(loginService);
 	}
 
 	/*사용자 인증 설정*/
@@ -51,31 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter("userId")
 				.passwordParameter("userPwd")
 				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/success",true)
-				.successHandler(new AuthenticationSuccessHandler() {
-
-					@Override
-					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-							Authentication authentication) throws IOException, ServletException {
-						String inputPwd = request.getParameter("userPwd");
-						System.out.println(inputPwd);
-						
-						response.sendRedirect("/success");
-					}
-				})
+				.defaultSuccessUrl("/success")
 				.failureUrl("/failure")
-				.failureHandler(new AuthenticationFailureHandler() {
-
-					@Override
-					public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-							AuthenticationException exception) throws IOException, ServletException {
-						String inputPwd = request.getParameter("userPwd");
-						System.out.println(inputPwd);
-						
-						
-					}
-					
-				})
 				.permitAll()
 			.and()
 				.logout()
@@ -90,4 +77,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		return  new BCryptPasswordEncoder();
 	}
+
 }
