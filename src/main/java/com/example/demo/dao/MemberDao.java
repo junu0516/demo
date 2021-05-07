@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.dao.mapper.MemberMapper;
 import com.example.demo.dto.Member;
 
 
@@ -20,6 +21,21 @@ import java.util.HashMap;
 @Repository
 public class MemberDao {
 	
+	@Autowired
+	MemberMapper memberMapper;
+
+	public Member getMember(String userId) {
+		
+		return memberMapper.selectMember(userId);
+	}
+
+	public int insertMemberInfo(Member member) {
+		
+		return memberMapper.insertMember(member);
+	}
+	
+	
+	/*
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Member> rowMapper = BeanPropertyRowMapper.newInstance(Member.class);
 	private SimpleJdbcInsert memberInsertion;
@@ -59,4 +75,5 @@ public class MemberDao {
 		
 		return result1 * result2;
 	}
+	*/
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.example.demo.dao.mapper.MemberMapper">
+
+	<!-- 회원정보 추가 -->
+    <insert id="insertMember" parameterType="Member">
+        insert into member (user_id, user_pwd, user_name) values(#{id}, #{pwd}, #{name})
+    </insert>
+
+    <!-- 회원정보 조회 -->
+    <select id="selectMember" parameterType="string" resultType="Member">
+        select user_id as id, user_pwd as pwd, user_name as name from member where user_id = #{userId}
+    </select>
+</mapper>

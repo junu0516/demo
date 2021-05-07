@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,8 @@ public class BoardController {
 		System.out.println(board);
 		
 		//게시글 작성날짜, 수정날짜 입력
+		board.setCreateDate(LocalDate.now().toString());
+		board.setModifyDate(board.getCreateDate());
 		
 		int result = boardService.writeBoard(board);
 		if(result<0) {
