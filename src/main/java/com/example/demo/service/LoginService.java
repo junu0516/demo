@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,8 +39,8 @@ public class LoginService implements UserDetailsService {
 		memberDetails.setUsername(memberEntity.getUserId());
 		memberDetails.setPassword(memberEntity.getUserPwd());
 		
-		ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-		ArrayList<MemberRoleEntity> memberRoleEntities = memberService.getMemberRoles(userId);
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		List<MemberRoleEntity> memberRoleEntities = memberService.getMemberRoles(userId);
 		if(memberRoleEntities != null) {
 			for(MemberRoleEntity memberRoleEntity : memberRoleEntities) {
 				authorities.add(new SimpleGrantedAuthority(memberRoleEntity.getRoleName()));

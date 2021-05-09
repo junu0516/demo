@@ -1,5 +1,8 @@
 package com.example.demo.dto;
 
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
+
 public class Board {
 	
 	private int no;//글번호(pk)
@@ -14,14 +17,14 @@ public class Board {
 		
 	}
 
-	public Board(int no, String title, String content, String writer, String createDate, String modifyDate, int count) {
+	public Board(int no, String title, String content, String writer, Timestamp createDate, Timestamp modifyDate, int count) {
 		super();
 		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
-		this.createDate = createDate;
-		this.modifyDate = modifyDate;
+		this.createDate = createDate.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		this.modifyDate = modifyDate.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		this.count = count;
 	}
 	
@@ -61,16 +64,16 @@ public class Board {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 
 	public String getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
+	public void setModifyDate(Timestamp modifyDate) {
+		this.modifyDate = modifyDate.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 
 	public int getCount() {

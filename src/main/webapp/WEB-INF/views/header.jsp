@@ -15,12 +15,12 @@
 <nav class="navbar navbar-expand-sm bg-light justify-content-center">
   <ul class="navbar-nav">
   	<li class="nav-item">
-      <a class="nav-link" href="main">홈으로</a>
+      <a class="nav-link" href="/main">홈으로</a>
     </li>
   	<sec:authentication var="principal" property="principal"/>
   	<c:if test="${pageContext['request'].userPrincipal.name != null}">
 	<li class="nav-item">
-      <a class="nav-link" href="logout">로그아웃</a>
+      <a class="nav-link" href="/logout">로그아웃</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="update.me">회원정보 수정</a>
@@ -31,14 +31,14 @@
       <a class="nav-link" data-toggle="modal" href="#enrollModal">회원가입</a>
     </li>
 	<li class="nav-item">
-      <a class="nav-link" href="loginForm">로그인</a>
+      <a class="nav-link" href="/loginForm">로그인</a>
     </li>
 	</c:if>
 	<c:if test="${userId != null }">
     
 	</c:if>
     <li class="nav-item">
-      <a class="nav-link" href="list.bo">게시글 보기</a>
+      <a class="nav-link" href="/board/list">게시글 보기</a>
     </li>
   </ul>
 </nav>

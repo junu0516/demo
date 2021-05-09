@@ -1,40 +1,53 @@
 package com.example.demo.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.dao.mapper.BoardMapper;
 import com.example.demo.dto.Board;
+import com.example.demo.paging.PageInfo;
 
-@Repository
+@Repository	
 public class BoardDao {
-	
-	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Board> rowMapper = BeanPropertyRowMapper.newInstance(Board.class);
-	private SimpleJdbcInsert boardInsertion;
-	
-	public BoardDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-		this.boardInsertion = new SimpleJdbcInsert(dataSource).withTableName("board");
-	}
+
+	@Autowired
+	BoardMapper boardMapper;
 	
 	public int writeBoard(Board board) {
 		
-		HashMap<String,Object> param = new HashMap<>();
-		param.put("title", board.getTitle());
-		param.put("writer", board.getWriter());
-		param.put("content", board.getContent());
-		param.put("create_date", board.getCreateDate());
-		param.put("modify_date", board.getModifyDate());
-		param.put("count", 0); //default value : 0
-		
-		return 0;
+		return boardMapper.insertBoard(board);
 	}
 
+	public List<Board> selectBoards(PageInfo pageInfo) {
+		
+		int offset = (pageInfo.getCurrentPage()-1)*pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pageInfo.getBoardLimit());
+		
+		return boardMapper.selectBoards(rowBounds);
+	}
+
+	public int selectListCount() {
+		
+		return boardMapper.selectListCount();
+	}
+
+	public Board selectBoard(int no) {
+		
+		return boardMapper.selectBoard(no);
+	}
+
+	public int deleteBoard(int no) {
+		
+		return boardMapper.deleteBoard(no);
+	}
 }

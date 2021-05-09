@@ -61,10 +61,4 @@ public class MainController {
 		
 		return "member/failure";
 	}
-	
-	@GetMapping("/success")
-	public String showSuccessPage() {
-		
-		return "member/success";
-	}
 }

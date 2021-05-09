@@ -11,6 +11,10 @@
 		float:right;
 		margin-right:20px;
 	}
+	#pagination{
+		float:right;
+		margin-right:40%;
+	}
 </style>
 </head>
 <body>
@@ -19,6 +23,74 @@
 	<h1>게시글 조회</h1><hr>
 	<a data-toggle="modal" href="#writeModal" class="btn btn-primary" id="writeBtn">글쓰기</a>
 </div>
+<br><br><br>
+<div class="container">
+	<h2>목록 보기</h2><br>
+	<table class="table table-hover" id="boardList">
+		<thead>
+	    	<tr>
+	        	<th>번호</th>
+	        	<th>제목</th>
+	        	<th>작성자</th>
+	        	<th>작성날짜</th>
+	      	</tr>
+	    </thead>
+	    <tbody>
+	    	<c:forEach items="${boards}" var="board">
+	    	<tr>
+	    		<td>${board.no}</td>
+	    		<td>${board.title}</td>	    		
+	    		<td>${board.writer}</td>
+	    		<td>${board.createDate}</td>
+	    	</tr>
+	    	</c:forEach>
+	    </tbody>	
+	</table>
+	<hr>
+	<ul class="pagination" id="pagination">
+		<c:choose>
+			<c:when test="${pageInfo.currentPage ne 1}">
+				<li class="page-item">
+					<a class="page-link" href="/board/list?page=${pageInfo.currentPage-1}">Previous</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link" href="#">Previous</a>
+				</li>
+			</c:otherwise>
+		</c:choose>
+		<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" var="page">
+			<c:choose>
+				<c:when test="${pageInfo.currentPage ne page}">
+					<li class="page-item">
+						<a class="page-link" href="/board/list?page=${page}">${page}</a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item disabled">
+						<a class="page-link" href="/board/list?page=${page}">${page}</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${pageInfo.currentPage ne pageInfo.maxPage}">
+				<li class="page-item">
+					<a class="page-link" href="/board/list?page=${pageInfo.currentPage+1}">Next</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link" href="#">Next</a>
+				</li>
+			</c:otherwise>
+		</c:choose>
+	</ul>
+</div>
+
+
+
 <!-- 글쓰기 모달 -->
 <div class="modal" id="writeModal">
 	<div class="modal-dialog">
@@ -48,5 +120,14 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(function(){
+		$('#boardList tbody tr').click(function(){
+			location.href="/board/detail?no="+$(this).children().eq(0).text();
+		});
+	});
+	
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,10 +38,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<MemberRoleEntity> getMemberRoles(String userId) {
+	public List<MemberRoleEntity> getMemberRoles(String userId) {
 		
-		ArrayList<MemberRole> memberRoles = memberRoleDao.getMemberRoles(userId);
-		ArrayList<MemberRoleEntity> memberRoleEntities = new ArrayList<>();
+		List<MemberRole> memberRoles = memberRoleDao.getMemberRoles(userId);
+		List<MemberRoleEntity> memberRoleEntities = new ArrayList<>();
 		
 		for(MemberRole memberRole : memberRoles) {
 			memberRoleEntities.add(new MemberRoleEntity(userId,memberRole.getRoleName()));
