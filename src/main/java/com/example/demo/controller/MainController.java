@@ -21,6 +21,7 @@ public class MainController {
 	@Autowired
 	private MemberService memberService;
 	
+	//메인 페이지
 	@GetMapping("/main")
 	public String showMain(Principal principal, Model model) {
 		
@@ -31,21 +32,14 @@ public class MainController {
 		return "main";
 	}
 	
+	//로그인 페이지
 	@GetMapping("/loginForm")
 	public String showLoginForm(String userId, String userPwd) {
-		
-		System.out.println("form enter");
-		System.out.println(userId);
-		System.out.println(userPwd);
+
 		return "member/loginForm";
 	}
 	
-	@GetMapping("/enrollForm")
-	public String showEnrollForm() {
-		
-		return "member/enrollForm";
-	}
-	
+	//회원가입
 	@PostMapping("/enroll")
 	public String enroll(Member member) throws Exception {
 
@@ -54,11 +48,10 @@ public class MainController {
 		return "redirect:main";
 	}
 	
+	//로그인 실패 페이지
 	@GetMapping("/failure")
 	public String showFailurePage(Principal principal, HttpServletRequest request) {
-		
-		System.out.println("failed");
-		
+
 		return "member/failure";
 	}
 }

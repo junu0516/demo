@@ -46,9 +46,11 @@
 	      	</tr>
 	</table>
 	<hr>
-	<a class="btn btn-primary" href="javascript:window.history.back();">목록으로</a>
-	<a  class="btn btn-secondary" href="/board/modify?no=${board.no}">수정하기</a>
-	<button class="btn btn-danger" onclick="deleteBoard(${board.no});">삭제하기</button>	
+	<a class="btn btn-primary" href="/board/list">목록으로</a>
+	<c:if test="${pageContext['request'].userPrincipal.name eq board.writer}" >
+	<a class="btn btn-secondary" href="/board/modify?no=${board.no}">수정하기</a>
+	<button class="btn btn-danger" onclick="deleteBoard(${board.no});">삭제하기</button>		
+	</c:if>
 </div>
 
 <script>
@@ -66,9 +68,8 @@
 				location.href="/board/list";
 			},error:function(e){
 				alert("삭제 실패");
-				console.log(e);
 			}
-		})
+		});
 	}
 </script>
 

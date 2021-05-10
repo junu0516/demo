@@ -42,8 +42,6 @@ public class BoardController {
 		
 		List<Board> boards = boardService.selectBoards(pageInfo);
 		model.addAttribute("boards",boards);
-		System.out.println(boards);
-		System.out.println(pageInfo);
 		
 		return "board/boardList";
 	}
@@ -70,7 +68,6 @@ public class BoardController {
 	public String showBoardDetail(@RequestParam(required=true)int no, Model model) {
 				
 		Board board = boardService.selectBoards(no);
-		System.out.println(board);
 		model.addAttribute("board", board);
 		
 		return "board/boardDetail";
@@ -86,6 +83,7 @@ public class BoardController {
 		return "board/boardUpdate";
 	}
 	
+	//게시글 수정
 	@PutMapping("/{no}")
 	@ResponseBody
 	public String updateBoard(@PathVariable int no, String title, String content) throws Exception {
@@ -104,12 +102,12 @@ public class BoardController {
 		return null;
 	}
 	
+	//게시글 삭제
 	@DeleteMapping("/{no}")
 	@ResponseBody
 	public String deleteBoard(@PathVariable int no) throws Exception {
 	
 		int result = boardService.deleteBoard(no);
-		System.out.println(result);
 		if(result<0) {
 			throw new Exception("Delete Error");
 		}

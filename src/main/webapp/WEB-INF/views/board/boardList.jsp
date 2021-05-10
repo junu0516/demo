@@ -89,8 +89,6 @@
 	</ul>
 </div>
 
-
-
 <!-- 글쓰기 모달 -->
 <div class="modal" id="writeModal">
 	<div class="modal-dialog">

@@ -70,8 +70,7 @@
 				location.href="/board/detail?no="+no;
 			},
 			error:function(e){
-				alert("수정 실패");
-				console.log(e);
+				alert("수정 실패\n"+e);
 			}
 		});
 	}	
