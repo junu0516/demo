@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,17 +78,28 @@ public class BoardController {
 	
 	//수정 폼으로 이동
 	@GetMapping("/modify")
-	public String showUpdateForm(@RequestParam(required=true)int no) {
+	public String showUpdateForm(@RequestParam(required=true)int no, Model model) {
 		
-		System.out.println("no : "+no);
+		Board board = boardService.selectBoards(no);
+		model.addAttribute("board",board);
 		
-		return null;
+		return "board/boardUpdate";
 	}
 	
 	@PutMapping("/{no}")
-	public String updateBoard(@RequestBody int no) {
+	@ResponseBody
+	public String updateBoard(@PathVariable int no, String title, String content) throws Exception {
 		
-		System.out.println("put");
+		HashMap<String,Object> param = new HashMap<>();
+		param.put("no", String.valueOf(no));
+		param.put("title", title);
+		param.put("content", content);
+		param.put("modifyDate", new Timestamp(System.currentTimeMillis()));
+		
+		int result = boardService.updateBoard(param);
+		if(result<0) {
+			throw new Exception("Update Error");
+		}
 		
 		return null;
 	}

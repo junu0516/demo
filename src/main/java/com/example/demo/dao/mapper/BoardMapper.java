@@ -1,5 +1,6 @@
 package com.example.demo.dao.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -19,4 +20,6 @@ public interface BoardMapper {
 	public Board selectBoard(int no);
 
 	public int deleteBoard(int no);
+
+	public int updateBoard(HashMap<String, Object> param);
 }

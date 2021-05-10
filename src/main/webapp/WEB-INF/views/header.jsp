@@ -22,9 +22,6 @@
 	<li class="nav-item">
       <a class="nav-link" href="/logout">로그아웃</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="update.me">회원정보 수정</a>
-    </li>	 
   	</c:if>
     <c:if test="${pageContext['request'].userPrincipal.name == null }">
      <li class="nav-item">

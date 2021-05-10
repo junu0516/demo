@@ -50,4 +50,9 @@ public class BoardDao {
 		
 		return boardMapper.deleteBoard(no);
 	}
+
+	public int updateBoard(HashMap<String, Object> param) {
+		
+		return boardMapper.updateBoard(param);
+	}
 }

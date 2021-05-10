@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,12 @@ public class BoardServiceImpl implements BoardService {
 		
 		
 		return boardDao.deleteBoard(no);
+	}
+
+	@Override
+	public int updateBoard(HashMap<String, Object> param) {
+		
+		return boardDao.updateBoard(param);
 	}
 
 }

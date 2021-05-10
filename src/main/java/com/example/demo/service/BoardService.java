@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.demo.dto.Board;
@@ -16,5 +17,7 @@ public interface BoardService {
 	Board selectBoards(int no);
 
 	int deleteBoard(int no);
+
+	int updateBoard(HashMap<String, Object> param);
 
 }

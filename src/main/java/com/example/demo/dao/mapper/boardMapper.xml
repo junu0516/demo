@@ -31,4 +31,13 @@
     	delete from board where no = #{no}
     </update>
     
+    <!-- 게시글 수정 -->
+    <update id="updateBoard" parameterType="hashmap">
+    	update board set
+    	title = #{title},
+    	content = #{content},
+    	modify_date = #{modifyDate}
+    	where no = #{no}
+    </update>
+    
 </mapper>
