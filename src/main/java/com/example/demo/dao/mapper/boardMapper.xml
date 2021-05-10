@@ -7,8 +7,8 @@
 
 	<!-- 게시글 등록 -->
     <insert id="insertBoard" parameterType="Board">
-        insert into board (title, writer, content, create_date, modify_date, count) 
-        values(#{title}, #{writer}, #{content}, #{createDate}, #{modifyDate}, default)
+        insert into board (no, title, writer, content, create_date, modify_date, count) 
+        values((select * from (select ifnull(max(no),0)+1 from board) _dummy),#{title}, #{writer}, #{content}, #{createDate}, #{modifyDate}, 0)
     </insert>
 
     <!-- 게시글 리스트 조회 -->
